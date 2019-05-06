@@ -15,12 +15,14 @@ import { Comment } from '../shared/Comment';
 export class DishdetailComponent implements OnInit {
 
   dish: Dish;
+  dishcopy: Dish;
   errMess: string;
+
   dishIds: string[];
   prev: string;
   next: string;
-  comment: Comment;
 
+  comment: Comment;
   commentForm: FormGroup;
 
   @ViewChild('cform') commentFormDirective;
@@ -58,9 +60,10 @@ export class DishdetailComponent implements OnInit {
       .pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
       .subscribe(dish => {
         this.dish = dish;
+        this.dishcopy = dish;
         this.setPrevNext(dish.id);
       },
-        errmess => this.errMess = <any>errmess);
+        errmess => this.errMess = <any>errmess );
   }
 
   setPrevNext(dishId: string) {
@@ -111,8 +114,19 @@ export class DishdetailComponent implements OnInit {
 
   onSubmit() {
     this.comment = this.commentForm.value;
-    this.comment.date = (new Date()).toString();
-    this.dish.comments.push(this.comment);
+    this.comment.date = new Date().toISOString();
+
+    this.dishcopy.comments.push(this.comment);
+    this.dishService.putDish(this.dishcopy)
+      .subscribe(dish => {
+        this.dish = dish; this.dishcopy = dish;
+      },
+        errMess => {
+          this.dish = null;
+          this.dishcopy = null;
+          this.errMess = <any>errMess;
+        });
+
     this.commentFormDirective.resetForm();
     this.commentForm.reset({
       author: '',
