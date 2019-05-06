@@ -48,6 +48,7 @@ import { HighlightDirective } from 'src/directives/highlight.directive';
       ReactiveFormsModule,
       HttpModule,
       HttpClientModule,
+      BrowserAnimationsModule,
       AppRoutingModule
    ],
    providers: [
