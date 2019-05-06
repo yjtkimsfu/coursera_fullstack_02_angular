@@ -24,6 +24,7 @@ import { LeaderService } from './services/leader.service';
 import { LoginComponent } from './login/login.component';
 import { baseURL } from './shared/baseurl';
 import { ProcessHTTPMsgService } from './services/ProcessHTTPMsg.service';
+import { HighlightDirective } from 'src/directives/highlight.directive';
 
 @NgModule({
    declarations: [
@@ -35,7 +36,8 @@ import { ProcessHTTPMsgService } from './services/ProcessHTTPMsg.service';
       HomeComponent,
       AboutComponent,
       ContactComponent,
-      LoginComponent
+      LoginComponent,
+      HighlightDirective
    ],
    imports: [
       BrowserModule,
