@@ -12,16 +12,16 @@ import { ProcessHTTPMsgService } from './ProcessHTTPMsg.service';
 export class DishService {
 
   constructor(private http: HttpClient,
-              private processHTTPMsgService: ProcessHTTPMsgService) { }
+              private processHttpMsgService: ProcessHTTPMsgService) { }
 
   getDishes(): Observable<Dish[]> {
     return this.http.get<Dish[]>(baseURL + 'dishes')
-      .pipe(catchError(this.processHTTPMsgService.handleError));
+      .pipe(catchError(this.processHttpMsgService.handleError));
   }
 
   getDish(id: string): Observable<Dish> {
     return this.http.get<Dish>(baseURL + 'dishes/' + id)
-      .pipe(catchError(this.processHTTPMsgService.handleError));
+      .pipe(catchError(this.processHttpMsgService.handleError));
   }
 
   getFeaturedDish(): Observable<Dish> {
@@ -42,6 +42,6 @@ export class DishService {
     };
 
     return this.http.put<Dish>(baseURL + 'dishes/' + dish.id, dish, httpOptions)
-      .pipe(catchError(this.processHTTPMsgService.handleError));
+      .pipe(catchError(this.processHttpMsgService.handleError));
   }
 }
