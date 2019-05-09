@@ -5,6 +5,7 @@ import { map, catchError } from 'rxjs/operators';
 import { baseURL } from '../shared/baseurl';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProcessHTTPMsgService } from './ProcessHTTPMsg.service';
+import { Feedback } from '../shared/feedback';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,17 @@ export class DishService {
     };
 
     return this.http.put<Dish>(baseURL + 'dishes/' + dish.id, dish, httpOptions)
+      .pipe(catchError(this.processHttpMsgService.handleError));
+  }
+
+  postDish(feedback: Feedback): Observable<Feedback> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.post<Feedback>(baseURL + 'feedback', feedback, httpOptions)
       .pipe(catchError(this.processHttpMsgService.handleError));
   }
 }
