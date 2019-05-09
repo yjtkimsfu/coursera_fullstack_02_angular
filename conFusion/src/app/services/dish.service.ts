@@ -45,15 +45,4 @@ export class DishService {
     return this.http.put<Dish>(baseURL + 'dishes/' + dish.id, dish, httpOptions)
       .pipe(catchError(this.processHttpMsgService.handleError));
   }
-
-  postDish(feedback: Feedback): Observable<Feedback> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-
-    return this.http.post<Feedback>(baseURL + 'feedback', feedback, httpOptions)
-      .pipe(catchError(this.processHttpMsgService.handleError));
-  }
 }

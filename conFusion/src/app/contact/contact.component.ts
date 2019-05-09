@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
 import { flyInOut } from '../animations/app.animation';
-import { DishService } from '../services/dish.service';
+import { FeedbackService } from '../services/feedback.service';
 
 @Component({
   selector: 'app-contact',
@@ -59,7 +59,7 @@ export class ContactComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder,
-              private dishService: DishService) {
+              private fbService: FeedbackService) {
     this.createForm();
    }
 
@@ -110,7 +110,7 @@ export class ContactComponent implements OnInit {
     this.submitClicked = true;
     this.feedback = this.feedbackForm.value;
 
-    this.dishService.postDish(this.feedback)
+    this.fbService.postFeedback(this.feedback)
       .subscribe(
         feedback => {
           this.submitClicked = false;
